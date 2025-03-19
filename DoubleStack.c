@@ -18,9 +18,28 @@ int InitStack(SqDoubleStack *S) {
 }
 
 void Push(SqDoubleStack *S, SElemType e, int stackNumber) {
+    if (S->top1 + 1 == S->top2) {
+        return;
+    }
+    if (stackNumber == 1) {
+        S->data[++S->top1] = e;
+    } else if (stackNumber == 2) {
+        S->data[--S->top2] = e;
+    }
 }
 
 SElemType Pop(SqDoubleStack *S, int stackNumber) {
+    if (stackNumber == 1) {
+        if (S->top1 == -1) {
+            return -1;
+        }
+        return S->data[S->top1--];
+    } else if (stackNumber == 2) {
+        if (S->top2 == MAXSIZE) {
+            return -1;
+        }
+        return S->data[S->top2++];
+    }
 }
 
 int main(int argc, char *argv[]) {
